@@ -1,0 +1,21 @@
+{
+  "name": "Matchup: Ranking Padel",
+  "short_name": "Matchup",
+  "description": "Sistema de ranking de pádel para clubes.",
+  "icons": [
+    {
+      "src": "/padel-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/padel-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#121212",
+  "background_color": "#ffffff"
+}
