@@ -41,4 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/club-admin/players/create', [ClubAdminController::class, 'createPlayer']);
     Route::get('/club-admin/players', [ClubAdminController::class, 'getPlayers']);
+
+    Route::get('/player/profile', [PlayerAuthController::class, 'getProfile']);
+    Route::post('/player/profile', [PlayerAuthController::class, 'updateProfile']);
 });

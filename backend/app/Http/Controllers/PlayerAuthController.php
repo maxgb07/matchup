@@ -101,4 +101,79 @@ class PlayerAuthController extends Controller
         ], 201);
     }
 
+    /**
+     * Obtiene el perfil del jugador autenticado.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getProfile(Request $request)
+    {
+        $user = $request->user();
+        if ($user && $user->TIPO_USUARIO === 3) {
+            $player = $user->jugador()->with([
+                'user', // Relación con el usuario para obtener el email
+                'club',
+                'categoria',
+                'ciudad',
+                'estado'
+            ])->first();
+
+            if ($player) {
+                return response()->json($player);
+            }
+        }
+        return response()->json(['message' => 'Perfil de jugador no encontrado.'], 404);
+    }
+
+    /**
+     * Actualiza el perfil del jugador autenticado.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+        if (!$user || $user->TIPO_USUARIO !== 3) {
+            return response()->json(['message' => 'Acceso no autorizado.'], 403);
+        }
+
+        try {
+            $request->validate([
+                'nombre' => 'required|string|max:255',
+                'celular' => 'required|string|max:20',
+                'posicion_cancha' => 'required|string|in:Derecha,Reves,Ambas',
+                'foto_perfil' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $e->errors()
+            ], 422);
+        }
+
+        $player = $user->jugador;
+        if (!$player) {
+            return response()->json(['message' => 'Perfil de jugador no encontrado.'], 404);
+        }
+
+        $player->NOMBRE = $request->nombre;
+        $player->CELULAR = $request->celular;
+        $player->POSICION_CANCHA = $request->posicion_cancha;
+
+        if ($request->hasFile('foto_perfil')) {
+            // Elimina la foto anterior si existe
+            if ($player->FOTO_PERFIL) {
+                Storage::delete($player->FOTO_PERFIL);
+            }
+            $path = $request->file('foto_perfil')->store('profile_photos', 'public');
+            $player->FOTO_PERFIL = $path;
+        }
+
+        $player->save();
+
+        return response()->json(['message' => 'Perfil actualizado exitosamente.', 'player' => $player]);
+    }
+
 }

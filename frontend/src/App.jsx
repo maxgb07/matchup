@@ -11,6 +11,7 @@ import PlayersList from './pages/PlayersList';
 import PlayerRegister from './pages/PlayerRegister';
 import PlayerLogin from './pages/PlayerLogin';
 import PlayerDashboard from './pages/PlayerDashboard';
+import PlayerProfile from './pages/PlayerProfile';
 import ProtectedRoute from './pages/ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/club-admin/players/create" element={<CreatePlayer />} />
           <Route path="/club-admin/players" element={<PlayersList />} />
           <Route path="/player/dashboard" element={<PlayerDashboard />} />
+          <Route path="/player/profile" element={<PlayerProfile />} />
         </Route>
       </Routes>
     </Router>
