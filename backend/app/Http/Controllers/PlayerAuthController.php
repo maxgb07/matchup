@@ -49,6 +49,7 @@ class PlayerAuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'player' => $user->jugador, // Devuelve el objeto completo del jugador asociado
+            'tipo_usuario' => $user->TIPO_USUARIO
         ]);
     }
 

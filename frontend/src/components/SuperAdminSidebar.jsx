@@ -91,7 +91,7 @@ const SuperAdminSidebar = ({ onHide }) => {
         <hr className="bg-secondary" />
 
         {/* Submenú de Ranking */}
-        <Nav.Link className="text-light">
+        <Nav.Link className="text-light" onClick={() => handleNavClick('/ranking')}>
           <FontAwesomeIcon icon={faTrophy} className="me-2" />
           Ranking
         </Nav.Link>

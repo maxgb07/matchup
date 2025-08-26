@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Card, Form, Button, Spinner } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo-matchup.png';
 
 const ClubAdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -33,6 +34,7 @@ const ClubAdminLogin = () => {
       // Guardar el token y el nombre del club en localStorage
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('club_name', data.club_name);
+      localStorage.setItem('tipo_usuario', data.tipo_usuario);
 
       Swal.fire({
         icon: 'success',
@@ -59,7 +61,10 @@ const ClubAdminLogin = () => {
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
       <Card className="p-4 mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
-          <Card.Title className="text-center mb-4">Login de Administrador de Club</Card.Title>
+          <div className="text-center">
+            <img src={logo} alt="Logo de MATCHUP, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px' , marginTop: '-30%'}} />
+            <h2 className="text-center" style={{ marginTop: '-10%'}} >Inicio Sesión Club </h2>
+          </div>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Correo Electrónico</Form.Label>

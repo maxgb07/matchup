@@ -45,6 +45,7 @@ class ClubAdminController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'club_name' => $user->club ? $user->club->NOMBRE : null,
+            'tipo_usuario' => $user->TIPO_USUARIO
         ]);
     }
 
@@ -110,10 +111,25 @@ class ClubAdminController extends Controller
         ], 201);
     }
 
-    public function getPlayers()
+    public function getPlayers(Request $request)
     {
-        $players = Jugador::with(['categoria', 'estado', 'ciudad', 'user', 'club'])->get();
+        $query = Jugador::with(['categoria', 'estado', 'ciudad', 'user', 'club'])->orderBy('ID_CATEGORIA', 'asc');;
+
+
+        // Filtrar por nombre si se proporciona el parámetro 'player_name'
+        if ($request->has('player_name')) {
+            $query->where('NOMBRE', 'like', '%' . $request->query('player_name') . '%');
+        }
+
+        // Filtrar por categoría (ID) si se proporciona el parámetro 'category_id'
+        if ($request->has('category_id')) {
+            $query->where('ID_CATEGORIA', $request->query('category_id'));
+        }
+
+        $players = $query->get();
 
         return response()->json($players);
     }
+
+
 }

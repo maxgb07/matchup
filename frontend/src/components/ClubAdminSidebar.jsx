@@ -61,7 +61,7 @@ const ClubAdminSidebar = ({ onHide, clubName }) => {
         </div>
         <hr className="bg-secondary" />
 
-        <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/ranking')}>
+        <Nav.Link className="text-light" onClick={() => handleNavClick('/ranking')}>
           <FontAwesomeIcon icon={faTrophy} className="me-2" />
           Ranking
         </Nav.Link>

@@ -31,6 +31,7 @@ const SuperAdminLogin = () => {
 
       // Guardar el token en localStorage
       localStorage.setItem('token', data.access_token);
+      localStorage.setItem('tipo_usuario', data.tipo_usuario);
 
       // Mostrar SweetAlert de éxito y redirigir
       Swal.fire({

@@ -56,7 +56,7 @@ return (
         </Nav.Link>
         <hr className="bg-secondary" />
 
-        <Nav.Link className="text-light" onClick={() => handleNavClick('/player/ranking')}>
+        <Nav.Link className="text-light" onClick={() => handleNavClick('/ranking')}>
           <FontAwesomeIcon icon={faTrophy} className="me-2" />
           Ranking
         </Nav.Link>

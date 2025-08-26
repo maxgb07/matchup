@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import SuperAdminLogin from './pages/SuperAdminLogin';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import CreateClub from './pages/CreateClub';
@@ -12,6 +13,7 @@ import PlayerRegister from './pages/PlayerRegister';
 import PlayerLogin from './pages/PlayerLogin';
 import PlayerDashboard from './pages/PlayerDashboard';
 import PlayerProfile from './pages/PlayerProfile';
+import Ranking from './pages/Ranking';
 import ProtectedRoute from './pages/ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +21,9 @@ function App() {
   return (
     <Router>
       <Routes>
+
+        <Route path="/" element={<HomePage />} />
+        
         <Route path="/super-admin/login" element={<SuperAdminLogin />} />
         <Route path="/club-admin/login" element={<ClubAdminLogin />} />
         <Route path="/player/register" element={<PlayerRegister />} />
@@ -35,6 +40,7 @@ function App() {
           <Route path="/club-admin/players" element={<PlayersList />} />
           <Route path="/player/dashboard" element={<PlayerDashboard />} />
           <Route path="/player/profile" element={<PlayerProfile />} />
+          <Route path="/ranking" element={<Ranking />} />
         </Route>
       </Routes>
     </Router>
