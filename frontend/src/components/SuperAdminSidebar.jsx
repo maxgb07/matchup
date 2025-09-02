@@ -7,7 +7,6 @@ import { faHome, faUsers, faTrophy, faPlus, faEye, faUserCircle, faSignOutAlt, f
 const SuperAdminSidebar = ({ onHide }) => {
   const navigate = useNavigate();
   
-  // Nombre de usuario de ejemplo, se puede obtener del token en el futuro
   const userName = 'Super Admin';
 
   const handleLogout = () => {
@@ -17,7 +16,7 @@ const SuperAdminSidebar = ({ onHide }) => {
 
   const handleNavClick = (path) => {
     navigate(path);
-    if (onHide) onHide(); // Cierra el Offcanvas en móvil
+    if (onHide) onHide();
   };
 
   return (
@@ -89,8 +88,35 @@ const SuperAdminSidebar = ({ onHide }) => {
           </div>
         </div>
         <hr className="bg-secondary" />
+        
+        {/* Submenú de Torneos */}
+        <div className="nav-item-accordion">
+          <a className="nav-link text-light d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#torneosMenu">
+            <span>
+              <FontAwesomeIcon icon={faTrophy} className="me-2" />
+              Torneos
+            </span>
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
+          <div className="collapse" id="torneosMenu">
+            <ul className="nav flex-column ms-3">
+              <li className="nav-item">
+                <Nav.Link className="text-light" onClick={() => handleNavClick('/torneos/create')}>
+                  <FontAwesomeIcon icon={faPlus} className="me-2" />
+                  Crear
+                </Nav.Link>
+              </li>
+              <li className="nav-item">
+                <Nav.Link className="text-light" onClick={() => handleNavClick('/torneos')}>
+                  <FontAwesomeIcon icon={faEye} className="me-2" />
+                  Lista
+                </Nav.Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr className="bg-secondary" />
 
-        {/* Submenú de Ranking */}
         <Nav.Link className="text-light" onClick={() => handleNavClick('/ranking')}>
           <FontAwesomeIcon icon={faTrophy} className="me-2" />
           Ranking

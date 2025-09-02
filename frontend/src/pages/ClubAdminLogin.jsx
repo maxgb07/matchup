@@ -35,6 +35,7 @@ const ClubAdminLogin = () => {
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('club_name', data.club_name);
       localStorage.setItem('tipo_usuario', data.tipo_usuario);
+      localStorage.setItem('id_club', data.id_club);
 
       Swal.fire({
         icon: 'success',

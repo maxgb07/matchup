@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faTrophy, faPlus, faEye, faUserCircle, faSignOutAlt, faFutbol } from '@fortawesome/free-solid-svg-icons';
 
-// Acepta la prop clubName
 const ClubAdminSidebar = ({ onHide, clubName }) => {
   const navigate = useNavigate();
-  // Eliminamos el valor fijo 'Admin del Club' de aquí
   
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('club_name'); // Agregamos la eliminación del nombre del club
+    localStorage.removeItem('club_name');
     navigate('/club-admin/login');
   };
 
@@ -61,6 +59,34 @@ const ClubAdminSidebar = ({ onHide, clubName }) => {
         </div>
         <hr className="bg-secondary" />
 
+        {/* Submenú de Torneos */}
+        <div className="nav-item-accordion">
+          <a className="nav-link text-light d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#torneosMenu">
+            <span>
+              <FontAwesomeIcon icon={faTrophy} className="me-2" />
+              Torneos
+            </span>
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
+          <div className="collapse" id="torneosMenu">
+            <ul className="nav flex-column ms-3">
+              <li className="nav-item">
+                <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/torneos/create')}>
+                  <FontAwesomeIcon icon={faPlus} className="me-2" />
+                  Crear
+                </Nav.Link>
+              </li>
+              <li className="nav-item">
+                <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/torneos/show')}>
+                  <FontAwesomeIcon icon={faEye} className="me-2" />
+                  Lista
+                </Nav.Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr className="bg-secondary" />
+
         <Nav.Link className="text-light" onClick={() => handleNavClick('/ranking')}>
           <FontAwesomeIcon icon={faTrophy} className="me-2" />
           Ranking
@@ -71,7 +97,6 @@ const ClubAdminSidebar = ({ onHide, clubName }) => {
       <div className="mt-auto pt-3">
         <div className="text-center mb-2">
           <FontAwesomeIcon icon={faUserCircle} size="2x" />
-          {/* Muestra el nombre del club que se pasa por prop */}
           <p className="mt-2">{clubName || "Cargando..."}</p>
         </div>
         <Button variant="danger" className="w-100" onClick={handleLogout}>

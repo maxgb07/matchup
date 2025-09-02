@@ -5,6 +5,7 @@ use App\Http\Controllers\ClubAdminController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\PlayerAuthController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\TorneoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,5 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/player/profile', [PlayerAuthController::class, 'getProfile']);
     Route::post('/player/profile', [PlayerAuthController::class, 'updateProfile']);
+    Route::post('/club-admin/torneos/create', [TorneoController::class, 'store']);
+    Route::get('/club-admin/torneos/{clubId}', [TorneoController::class, 'showByClub']);
+    Route::get('/torneos/{id}/details', [TorneoController::class, 'showDetails']);
 
 });

@@ -45,7 +45,8 @@ class ClubAdminController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'club_name' => $user->club ? $user->club->NOMBRE : null,
-            'tipo_usuario' => $user->TIPO_USUARIO
+            'tipo_usuario' => $user->TIPO_USUARIO,
+            'id_club' => $user->club->ID
         ]);
     }
 

@@ -14,6 +14,8 @@ import PlayerLogin from './pages/PlayerLogin';
 import PlayerDashboard from './pages/PlayerDashboard';
 import PlayerProfile from './pages/PlayerProfile';
 import Ranking from './pages/Ranking';
+import CreateTournament from './pages/CrearTorneoForm';
+import ShowTournaments from './pages/VerTorneos';
 import ProtectedRoute from './pages/ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -41,6 +43,8 @@ function App() {
           <Route path="/player/dashboard" element={<PlayerDashboard />} />
           <Route path="/player/profile" element={<PlayerProfile />} />
           <Route path="/ranking" element={<Ranking />} />
+          <Route path="/club-admin/torneos/create" element={<CreateTournament />} />
+          <Route path="/club-admin/torneos/show" element={<ShowTournaments />} />
         </Route>
       </Routes>
     </Router>
