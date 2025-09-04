@@ -22,7 +22,7 @@ const SuperAdminDashboard = () => {
         <Col xs={12} md={10} className="p-0">
           {/* Encabezado con botón para móvil */}
           <div className="d-md-none bg-dark text-light p-3 d-flex justify-content-between align-items-center">
-            <h4>Matchup</h4>
+            <h4>matchcup</h4>
             <Button variant="outline-light" onClick={handleShowSidebar}>
               <FontAwesomeIcon icon={faBars} />
             </Button>

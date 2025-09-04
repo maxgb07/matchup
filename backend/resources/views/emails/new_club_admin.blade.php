@@ -1,5 +1,5 @@
 @component('mail::message')
-# ¡Bienvenido a Matchup!
+# ¡Bienvenido a matchcup!
 
 Hola {{ $name }},
 
@@ -14,5 +14,5 @@ Por motivos de seguridad, te recomendamos cambiar tu contraseña en tu primer in
 ¡Esperamos que disfrutes de la plataforma!
 
 Saludos,
-El equipo de Matchup
+El equipo de matchcup
 @endcomponent

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, Button, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import logo from '../assets/logo-matchup.png';
+import logo from '../assets/logo-matchcup.png';
 
 const PlayerRegister = () => {
     const [name, setName] = useState('');
@@ -128,7 +128,7 @@ const PlayerRegister = () => {
                     <Card className="shadow-lg">
                         <Card.Body>
                             <div className="text-center mb-4">
-                                <img src={logo} alt="Logo de MATCHUP, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px' }} />
+                                <img src={logo} alt="Logo de matchcup, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px' }} />
                                 <h2 style={{ marginTop: '-5% !important' }}>Registro de Jugador</h2>
                             </div>
                             <Form onSubmit={handleSubmit}>

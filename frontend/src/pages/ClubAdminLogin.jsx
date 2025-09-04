@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Card, Form, Button, Spinner } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo-matchup.png';
+import logo from '../assets/logo-matchcup.png';
 
 const ClubAdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -63,7 +63,7 @@ const ClubAdminLogin = () => {
       <Card className="p-4 mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <div className="text-center">
-            <img src={logo} alt="Logo de MATCHUP, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px' , marginTop: '-30%'}} />
+            <img src={logo} alt="Logo de matchcup, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px' , marginTop: '-30%'}} />
             <h2 className="text-center" style={{ marginTop: '-10%'}} >Inicio Sesión Club </h2>
           </div>
           <Form onSubmit={handleSubmit}>

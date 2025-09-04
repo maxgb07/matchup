@@ -1,6 +1,6 @@
 {
-  "name": "Matchup: Ranking Padel",
-  "short_name": "Matchup",
+  "name": "matchcup: Ranking Padel",
+  "short_name": "matchcup",
   "description": "Sistema de ranking de pádel para clubes.",
   "icons": [
     {

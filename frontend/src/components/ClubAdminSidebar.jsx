@@ -22,7 +22,7 @@ const ClubAdminSidebar = ({ onHide, clubName }) => {
     <div className="bg-dark text-light p-4 d-flex flex-column" style={{ minHeight: '100vh' }}>
       <div className="text-center mb-4">
         <FontAwesomeIcon icon={faFutbol} size="3x" />
-        <h4 className="mt-2">Matchup</h4>
+        <h4 className="mt-2">matchcup</h4>
       </div>
       <hr className="bg-light" />
       <Nav className="flex-column">

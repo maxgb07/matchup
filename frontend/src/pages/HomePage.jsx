@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Button, Spinner, Table, Carousel } from 'rea
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignInAlt, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import logo from '../assets/logo-matchup.png';
+import logo from '../assets/logo-matchcup.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -68,7 +68,7 @@ const HomePage = () => {
             {/* Contenido principal */}
             <Row className="g-0 justify-content-center text-center">
                 <Col md={12}>
-                    <img src={logo} alt="Logo de MATCHUP, sitio web de pádel" className="img-fluid" style={{ maxWidth: '400px', marginTop: '-5%' }} />
+                    <img src={logo} alt="Logo de matchcup, sitio web de pádel" className="img-fluid" style={{ maxWidth: '400px', marginTop: '-5%' }} />
                     <p className="lead text-muted" style={{ marginTop: '-5%' }}>
                         Descubre a los mejores jugadores en cada categoría.
                     </p>

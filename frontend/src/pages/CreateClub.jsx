@@ -80,7 +80,7 @@ const CreateClub = () => {
 
         <Col xs={12} md={10} className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
           <div className="d-md-none bg-dark text-light p-3 d-flex justify-content-between align-items-center w-100">
-            <h4>Matchup</h4>
+            <h4>matchcup</h4>
             <Button variant="outline-light" onClick={handleShowSidebar}>
               <FontAwesomeIcon icon={faBars} />
             </Button>
@@ -120,7 +120,7 @@ const CreateClub = () => {
                       required
                     />
                     <Form.Text className="text-muted">
-                      Se usará para la URL única del club (ej: padelclub.matchup.com).
+                      Se usará para la URL única del club (ej: padelclub.matchcup.com).
                     </Form.Text>
                   </Form.Group>
                   <Form.Group className="mb-3">

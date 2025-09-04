@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Card, Form, Button, Spinner, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo-matchup.png';
+import logo from '../assets/logo-matchcup.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -66,7 +66,7 @@ const PlayerLogin = () => {
       <Card className="p-4 mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <div className="text-center mb-4">
-            <img src={logo} alt="Logo de MATCHUP, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px', marginTop: '-30%' }} />
+            <img src={logo} alt="Logo de matchcup, sitio web de pádel" className="img-fluid" style={{ maxWidth: '250px', marginTop: '-30%' }} />
             <h2 className="text-center" style={{ marginTop: '-10%'}} >Inicio Sesión Jugador </h2>
           </div>
           <Form onSubmit={handleSubmit}>
