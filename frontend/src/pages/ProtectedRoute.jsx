@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (!token) {
     // Si no hay token, redirige al login
-    return <Navigate to="/super-admin/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // Si hay token, renderiza las rutas hijas

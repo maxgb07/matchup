@@ -10,7 +10,7 @@ const ClubAdminSidebar = ({ onHide, clubName }) => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('club_name');
-    navigate('/club-admin/login');
+    navigate('/');
   };
 
   const handleNavClick = (path) => {
@@ -71,13 +71,13 @@ const ClubAdminSidebar = ({ onHide, clubName }) => {
           <div className="collapse" id="torneosMenu">
             <ul className="nav flex-column ms-3">
               <li className="nav-item">
-                <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/torneos/create')}>
+                <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/CreateTournament')}>
                   <FontAwesomeIcon icon={faPlus} className="me-2" />
                   Crear
                 </Nav.Link>
               </li>
               <li className="nav-item">
-                <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/torneos/show')}>
+                <Nav.Link className="text-light" onClick={() => handleNavClick('/club-admin/TournamentList')}>
                   <FontAwesomeIcon icon={faEye} className="me-2" />
                   Lista
                 </Nav.Link>

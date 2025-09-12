@@ -19,6 +19,7 @@ const PlayerRegister = () => {
     const [selectedPosition, setSelectedPosition] = useState('');
     const [selectedClub, setSelectedClub] = useState('');
     const [profilePhoto, setProfilePhoto] = useState(null);
+    const [birthDate, setBirthDate] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -85,6 +86,7 @@ const PlayerRegister = () => {
         if (profilePhoto) {
             formData.append('foto_perfil', profilePhoto);
         }
+        formData.append('fecha_nacimiento', birthDate);
 
         try {
             const response = await fetch(`${API_URL}player/register`, {
@@ -140,24 +142,35 @@ const PlayerRegister = () => {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
+                                        <Form.Group controlId="formBirthDate">
+                                            <Form.Label>Fecha de Nacimiento</Form.Label>
+                                            <Form.Control 
+                                                type="date" 
+                                                value={birthDate}
+                                                onChange={(e) => setBirthDate(e.target.value)}
+                                                required
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formPlayerEmail">
                                             <Form.Label>Correo Electrónico</Form.Label>
                                             <Form.Control type="email" placeholder="Ingresa tu correo" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-
-                                <Row className="mb-3">
-                                    <Col md={6}>
-                                        <Form.Group controlId="formPlayerPassword">
-                                            <Form.Label>Contraseña</Form.Label>
-                                            <Form.Control type="password" placeholder="Mínimo 8 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} required />
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
                                         <Form.Group controlId="formPlayerPhone">
                                             <Form.Label>Celular</Form.Label>
                                             <Form.Control type="tel" placeholder="Ej. 55-1234-5678" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+
+                                <Row className="mb-3">
+                                    <Col md={12}>
+                                        <Form.Group controlId="formPlayerPassword">
+                                            <Form.Label>Contraseña</Form.Label>
+                                            <Form.Control type="password" placeholder="Mínimo 8 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} required />
                                         </Form.Group>
                                     </Col>
                                 </Row>

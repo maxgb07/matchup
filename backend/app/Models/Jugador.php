@@ -38,6 +38,7 @@ class Jugador extends Model
         'ID_CATEGORIA',
         'ID_CIUDAD',
         'ID_ESTADO',
+        'FECHA_NACIMIENTO'
     ];
 
     /**

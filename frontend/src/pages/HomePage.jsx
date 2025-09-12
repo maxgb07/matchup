@@ -30,17 +30,17 @@ const HomePage = () => {
         fetchRanking();
     }, []);
 
-    // Agrupa a los jugadores por género y luego por categoría
+    // Agrupa a los jugadores por género y luego por categoría usando los datos del backend
     const groupedRanking = ranking.reduce((acc, player) => {
-        const genero = player.categoria?.GENERO || 'Sin Género';
-        const categoriaID = player.categoria?.ID || 'Sin ID';
+        const genero = player.categoria_genero || 'Sin Género';
+        const categoriaID = player.ID_CATEGORIA || 'Sin ID';
 
         if (!acc[genero]) {
             acc[genero] = {};
         }
         if (!acc[genero][categoriaID]) {
             acc[genero][categoriaID] = {
-                nombre: `${player.categoria?.NOMBRE} - ${genero}`,
+                nombre: `${player.categoria_nombre} - ${genero}`,
                 players: [],
             };
         }
@@ -108,8 +108,8 @@ const HomePage = () => {
                                                             <tbody>
                                                                 {category.players.slice(0, 10).map((player, index) => (
                                                                     <tr key={player.ID}>
-                                                                        <td>{index + 1}</td>
-                                                                        <td>{player.jugador?.NOMBRE}</td>
+                                                                        <td>{player.posicion}</td>
+                                                                        <td>{player.NOMBRE}</td>
                                                                         <td>{player.PUNTOS}</td>
                                                                     </tr>
                                                                 ))}
@@ -147,8 +147,8 @@ const HomePage = () => {
                                                             <tbody>
                                                                 {category.players.slice(0, 10).map((player, index) => (
                                                                     <tr key={player.ID}>
-                                                                        <td>{index + 1}</td>
-                                                                        <td>{player.jugador?.NOMBRE}</td>
+                                                                        <td>{player.posicion}</td>
+                                                                        <td>{player.NOMBRE}</td>
                                                                         <td>{player.PUNTOS}</td>
                                                                     </tr>
                                                                 ))}

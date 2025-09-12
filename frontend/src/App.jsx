@@ -14,8 +14,9 @@ import PlayerLogin from './pages/PlayerLogin';
 import PlayerDashboard from './pages/PlayerDashboard';
 import PlayerProfile from './pages/PlayerProfile';
 import Ranking from './pages/Ranking';
-import CreateTournament from './pages/CrearTorneoForm';
-import ShowTournaments from './pages/VerTorneos';
+import CreateTournament from './pages/CreateTournament';
+import TournamentList from './pages/TournamentList';
+import PlayerTournaments from './pages/PlayerTournaments';
 import ProtectedRoute from './pages/ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -42,9 +43,10 @@ function App() {
           <Route path="/club-admin/players" element={<PlayersList />} />
           <Route path="/player/dashboard" element={<PlayerDashboard />} />
           <Route path="/player/profile" element={<PlayerProfile />} />
+          <Route path="/player/PlayerTournaments" element={<PlayerTournaments/>} />
           <Route path="/ranking" element={<Ranking />} />
-          <Route path="/club-admin/torneos/create" element={<CreateTournament />} />
-          <Route path="/club-admin/torneos/show" element={<ShowTournaments />} />
+          <Route path="/club-admin/CreateTournament" element={<CreateTournament />} />
+          <Route path="/club-admin/TournamentList" element={<TournamentList />} />
         </Route>
       </Routes>
     </Router>

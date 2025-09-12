@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPasswordMail;
 
 class PlayerAuthController extends Controller
 {
@@ -57,7 +60,7 @@ class PlayerAuthController extends Controller
     {
         // Validación de los datos
         $validated = $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
             'nombre' => ['required', 'string', 'max:255'],
             'celular' => ['required', 'string', 'max:20'],
@@ -67,6 +70,7 @@ class PlayerAuthController extends Controller
             'posicion' => ['required', 'string'],
             'foto_perfil' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'club_id' => ['required', 'exists:clubs,id'],
+            'fecha_nacimiento' => ['required', 'date'],
         ]);
 
         // Guardar la foto de perfil si se subió una
@@ -93,7 +97,8 @@ class PlayerAuthController extends Controller
             'ID_CATEGORIA' => $validated['categoria_id'],
             'ID_CIUDAD' => $validated['ciudad_id'],
             'ID_ESTADO' => $validated['estado_id'],
-            'FOTO' => $foto_perfil,
+            'FOTO_PERFIL' => $foto_perfil,
+            'FECHA_NACIMIENTO' => $validated['fecha_nacimiento'],
         ]);
 
         return response()->json([
@@ -169,12 +174,59 @@ class PlayerAuthController extends Controller
                 Storage::delete($player->FOTO_PERFIL);
             }
             $path = $request->file('foto_perfil')->store('profile_photos', 'public');
-            $player->FOTO_PERFIL = $path;
+            $player->FOTO_PERFIL =basename($path);
         }
 
         $player->save();
 
         return response()->json(['message' => 'Perfil actualizado exitosamente.', 'player' => $player]);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        // 1. Validar el correo electrónico
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $e->errors()
+            ], 422);
+        }
+
+        // 2. Buscar al usuario por email
+        $user = User::where('EMAIL', $request->email)->first();
+
+        // 3. Verificar si el usuario existe
+        if (!$user) {
+            return response()->json([
+                'message' => 'No se encontró un usuario con ese correo electrónico.'
+            ], 404);
+        }
+
+        // 4. Generar una nueva contraseña aleatoria
+        $newPassword = Str::random(10);
+
+        // 5. Actualizar la contraseña del usuario en la base de datos (hasheada)
+        $user->PASSWORD = Hash::make($newPassword);
+        $user->save();
+
+        // 6. Enviar la nueva contraseña al usuario por correo electrónico
+        try {
+            Mail::to($user->EMAIL)->send(new NewPasswordMail($newPassword));
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Nueva contraseña generada pero el correo no pudo ser enviado.',
+                'error_detail' => $e->getMessage()
+            ], 500);
+        }
+
+        // 7. Retornar una respuesta al frontend con un mensaje de éxito
+        return response()->json([
+            'message' => 'Se ha enviado la nueva contraseña a tu correo electrónico.',
+        ], 200);
     }
 
 }

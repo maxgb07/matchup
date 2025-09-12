@@ -25,7 +25,7 @@ const PlayerSidebar = ({ playerName, onHide }) => {
         localStorage.removeItem('user_name');
         localStorage.removeItem('user_id');
         localStorage.removeItem('token');
-        navigate('/player/login');
+        navigate('/');
         onHide(); // Cierra el Offcanvas si está abierto
       }
     });
@@ -53,6 +53,12 @@ return (
         <Nav.Link className="text-light" onClick={() => handleNavClick('/player/profile')}>
           <FontAwesomeIcon icon={faUsers} className="me-2" />
           Mi Perfil
+        </Nav.Link>
+        <hr className="bg-secondary" />
+
+        <Nav.Link className="text-light" onClick={() => handleNavClick('/player/PlayerTournaments')}>
+          <FontAwesomeIcon icon={faTrophy} className="me-2" />
+          Torneos
         </Nav.Link>
         <hr className="bg-secondary" />
 

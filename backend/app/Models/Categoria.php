@@ -14,7 +14,9 @@ class Categoria extends Model
 
     public function torneos()
     {
-        return $this->belongsToMany(Torneo::class, 'TORNEO_CATEGORIAS', 'CATEGORIA_ID', 'TORNEO_ID')
-                    ->withPivot('GRUPOS', 'PAREJAS_POR_GRUPO');
+        return $this->belongsToMany(Torneo::class, 'TORNEO_CATEGORIA', 'ID_CATEGORIA', 'ID_TORNEO')
+                    ->using(TorneoCategoria::class)
+                    ->withPivot('CUPO_PAREJAS')
+                    ->withTimestamps();
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Card, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Card, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo-matchcup.png';
@@ -8,6 +8,8 @@ const ClubAdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
   const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -47,6 +49,46 @@ const ClubAdminLogin = () => {
         navigate('/club-admin/dashboard');
       });
       
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${API_URL}club-admin/forgot-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: forgotPasswordEmail }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Error al restablecer la contraseña.');
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: '¡Correo enviado!',
+        text: data.message,
+      });
+
+      handleCloseModal();
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -105,8 +147,44 @@ const ClubAdminLogin = () => {
               )}
             </Button>
           </Form>
+          <div className="text-center mt-3">
+            <a href="#" onClick={handleShowModal} style={{ color: '#007bff', textDecoration: 'none' }}>
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
         </Card.Body>
       </Card>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Form onSubmit={handleForgotPassword}>
+          <Modal.Header closeButton>
+            <Modal.Title>Restablecer Contraseña</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group controlId="forgotPasswordEmail">
+              <Form.Label>Correo Electrónico</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Ingresa tu correo"
+                value={forgotPasswordEmail}
+                onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                required
+              />
+              <Form.Text className="text-muted">
+                Ingresa el correo asociado a tu cuenta para restablecer tu contraseña.
+              </Form.Text>
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Cancelar
+            </Button>
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Enviar'}
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </Container>
   );
 };

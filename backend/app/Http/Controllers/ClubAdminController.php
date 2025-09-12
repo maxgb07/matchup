@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\NewPlayerCredentials;
 use Illuminate\Support\Str;
 use App\Models\Jugador;
+use App\Mail\NewPasswordMail;
 
 class ClubAdminController extends Controller
 {
@@ -63,6 +64,7 @@ class ClubAdminController extends Controller
                 'city_id' => 'required|exists:CIUDADES,ID',
                 'category_id' => 'required|exists:CATEGORIAS,ID',
                 'position' => 'required|string|in:Derecha,Reves,Ambas',
+                'birth_date' => 'required|date',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -96,6 +98,7 @@ class ClubAdminController extends Controller
             'ID_CATEGORIA' => $request->category_id,
             'ID_CIUDAD' => $request->city_id,
             'ID_ESTADO' => $request->state_id,
+            'FECHA_NACIMIENTO' => $request->birth_date,
         ]);
 
         try {
@@ -130,6 +133,53 @@ class ClubAdminController extends Controller
         $players = $query->get();
 
         return response()->json($players);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        // 1. Validar el correo electrónico
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $e->errors()
+            ], 422);
+        }
+
+        // 2. Buscar al usuario por email
+        $user = User::where('EMAIL', $request->email)->first();
+
+        // 3. Verificar si el usuario existe
+        if (!$user) {
+            return response()->json([
+                'message' => 'No se encontró un usuario con ese correo electrónico.'
+            ], 404);
+        }
+
+        // 4. Generar una nueva contraseña aleatoria
+        $newPassword = Str::random(10);
+
+        // 5. Actualizar la contraseña del usuario en la base de datos (hasheada)
+        $user->PASSWORD = Hash::make($newPassword);
+        $user->save();
+
+        // 6. Enviar la nueva contraseña al usuario por correo electrónico
+        try {
+            Mail::to($user->EMAIL)->send(new NewPasswordMail($newPassword));
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Nueva contraseña generada pero el correo no pudo ser enviado.',
+                'error_detail' => $e->getMessage()
+            ], 500);
+        }
+
+        // 7. Retornar una respuesta al frontend con un mensaje de éxito
+        return response()->json([
+            'message' => 'Se ha enviado la nueva contraseña a tu correo electrónico.',
+        ], 200);
     }
 
 

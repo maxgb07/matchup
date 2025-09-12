@@ -31,6 +31,8 @@ Route::get('/cities/{stateId}', [GeneralController::class, 'getCities']);
 Route::get('/categories', [GeneralController::class, 'getCategories']);
 Route::get('/clubs', [GeneralController::class, 'getClubs']);
 Route::get('/ranking', [RankingController::class, 'index']);
+Route::post('/password/forgot', [PlayerAuthController::class, 'forgotPassword']);
+Route::post('club-admin/forgot-password', [ClubAdminController::class, 'forgotPassword']);
 
 
 // Rutas protegidas (requieren un token de autenticación)
@@ -48,8 +50,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/player/profile', [PlayerAuthController::class, 'getProfile']);
     Route::post('/player/profile', [PlayerAuthController::class, 'updateProfile']);
-    Route::post('/club-admin/torneos/create', [TorneoController::class, 'store']);
-    Route::get('/club-admin/torneos/{clubId}', [TorneoController::class, 'showByClub']);
-    Route::get('/torneos/{id}/details', [TorneoController::class, 'showDetails']);
+    Route::post('/tournaments/create', [TorneoController::class, 'createTournament']);
+    Route::post('/tournaments/by-club', [TorneoController::class, 'getTournamentsByClub']);
+    Route::put('/tournaments/{id}', [TorneoController::class, 'updateTournament']);
+    Route::delete('/tournaments/{id}', [TorneoController::class, 'deleteTournament']);
+    Route::post('ranking/add-points', [RankingController::class, 'addPoints']);
+    Route::get('tournaments', [TorneoController::class, 'index']);
 
 });

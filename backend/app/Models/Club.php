@@ -41,4 +41,9 @@ class Club extends Model
     {
         return $this->belongsTo(User::class, 'ID_ADMIN', 'ID');
     }
+
+    public function torneos()
+    {
+        return $this->hasMany(Torneo::class, 'ID_CLUB', 'ID');
+    }
 }

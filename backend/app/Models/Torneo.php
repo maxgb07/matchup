@@ -9,31 +9,52 @@ class Torneo extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'TORNEOS';
+
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
     protected $primaryKey = 'ID';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
+        'ID_CLUB',
         'NOMBRE',
         'FECHA_INICIO',
         'FECHA_FIN',
-        'COSTO',
-        'ESTADO',
-        'ID_CLUB'
+        'FECHA_INSCRIPCION_LIMITE',
+        'COSTO_POR_PAREJA',
+        'DESCRIPCION',
+        'ACTIVO'
     ];
 
+    /**
+     * Get the club that owns the tournament.
+     */
     public function club()
     {
         return $this->belongsTo(Club::class, 'ID_CLUB', 'ID');
     }
 
-    public function puntosPorRonda()
-    {
-        return $this->hasMany(TorneoPuntos::class, 'TORNEO_ID', 'ID');
-    }
-
+    /**
+     * The categories that belong to the tournament.
+     */
     public function categorias()
     {
-        return $this->belongsToMany(Categoria::class, 'TORNEO_CATEGORIAS', 'TORNEO_ID', 'CATEGORIA_ID')
-                    ->withPivot('GRUPOS', 'PAREJAS_POR_GRUPO');
+        return $this->belongsToMany(Categoria::class, 'TORNEO_CATEGORIA', 'ID_TORNEO', 'ID_CATEGORIA')
+                    ->using(TorneoCategoria::class)
+                    ->withPivot('CUPO_PAREJAS')
+                    ->withTimestamps();
     }
 }

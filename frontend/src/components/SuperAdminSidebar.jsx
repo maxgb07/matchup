@@ -11,7 +11,7 @@ const SuperAdminSidebar = ({ onHide }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/super-admin/login');
+    navigate('/');
   };
 
   const handleNavClick = (path) => {
